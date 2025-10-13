@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
-import SignInButton from '../src/components/SignInButton';
+import SignInButton from '../components/sign-in-button';
 
 export default function LoginScreen() {
     return (
