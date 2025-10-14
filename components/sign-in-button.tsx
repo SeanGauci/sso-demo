@@ -1,12 +1,29 @@
-import { TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
+import { useEffect } from 'react';
+
+WebBrowser.maybeCompleteAuthSession();
 
 export default function SignInButton() {
-    const handlePress = () => {
-        Alert.alert('Sign In', 'This is where Google SSO will be integrated.');
-    };
+    const [request, response, promptAsync] = Google.useAuthRequest({
+        webClientId: '441353261710-6vth2v1v5muvci79bo04sq1gn2km5otg.apps.googleusercontent.com',
+    });
+
+    useEffect(() => {
+        if (response?.type === 'success') {
+            const { authentication } = response;
+            console.log('Access token:', authentication?.accessToken);
+            // Handle login success (e.g., navigate or call backend)
+        }
+    }, [response]);
 
     return (
-        <TouchableOpacity style={styles.button} onPress={handlePress}>
+        <TouchableOpacity
+            style={styles.button}
+            onPress={() => promptAsync()}
+            disabled={!request}
+        >
             <Text style={styles.text}>Sign In with Google</Text>
         </TouchableOpacity>
     );
