@@ -16,12 +16,14 @@
    ```
 
 ### Step 2 - Create a Google OAuth Client ID
-1. Go to the [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
-2. Create a project.
-3. Click Create Credentials -> OAuth client ID.
-4. Click 'Configure consent screen' -> Get started
-5. Select Web client (since we are using expo, otherwise it would be Android or iOS).
-6. Copy the Client ID (you’ll need it for your app).
+1. Create an Expo account (npx expo login -> npx expo whoami)
+2. Go to the [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+3. Create a project.
+4. Click Create Credentials -> OAuth client ID.
+5. Click 'Configure consent screen' -> Get started
+6. Select Web client (since we are using expo, otherwise it would be Android or iOS).
+7. Copy the Client ID (you’ll need it for your app).
+8. Edit OAuth Client -> Authorized redirect URIs -> Add https://auth.expo.io/@your-username/sso-demo
 
 ### Step 3 - Create a Google OAuth Client ID
 Update `sign-in-button.tsx` to open Google's authentication flow:
@@ -75,7 +77,8 @@ const styles = StyleSheet.create({
 ```
 
 ### Step 4 - Test the Integration
-1. Run your app on a real device (not a simulator if using Google Sign-In).
+1. Download the Expo Go app on your phone.
+2. Run `npm start` and scan the QR code form the Expo Go app.
 2. Tap Sign In with Google.
 3. You should see the Google sign-in screen.
 4. On success, you’ll get user details in the console.
