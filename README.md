@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
 5. Open the app on your browser.
 6. Tap Sign In with Google.
 7. You should see the Google sign-in screen.
-8. On success, you’ll get user details in the console.
+8. On success, you’ll get user details in the console (fn + f12).
 
 ### Step 5 - (Optional) Handle Sign-Out
 1. Add a simple sign-out button if needed:
