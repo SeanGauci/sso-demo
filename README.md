@@ -17,9 +17,11 @@
 
 ### Step 2 - Create a Google OAuth Client ID
 1. Go to the [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
-2. Click Create Credentials -> OAuth client ID.
-3. Select Web client (since we are using expo, otherwise it would be Android or iOS).
-4. Copy the Client ID (you’ll need it for your app).
+2. Create a project.
+3. Click Create Credentials -> OAuth client ID.
+4. Click 'Configure consent screen' -> Get started
+5. Select Web client (since we are using expo, otherwise it would be Android or iOS).
+6. Copy the Client ID (you’ll need it for your app).
 
 ### Step 3 - Create a Google OAuth Client ID
 Update `sign-in-button.tsx` to open Google's authentication flow:
