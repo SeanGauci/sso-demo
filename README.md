@@ -16,14 +16,12 @@
    ```
 
 ### Step 2 - Create a Google OAuth Client ID
-1. Create an Expo account (npx expo login -> npx expo whoami)
-2. Go to the [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
-3. Create a project.
-4. Click Create Credentials -> OAuth client ID.
-5. Click 'Configure consent screen' -> Get started
-6. Select Web client (since we are using expo, otherwise it would be Android or iOS).
-7. Copy the Client ID (you’ll need it for your app).
-8. Edit OAuth Client -> Authorized redirect URIs -> Add https://auth.expo.io/@your-username/sso-demo
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+2. Create a project.
+3. Click Create Credentials -> OAuth client ID.
+4. Click 'Configure consent screen' -> Get started
+5. Select Web client (since we are using expo, otherwise it would be Android or iOS).
+6. Copy the Client ID (you’ll need it for your app).
 
 ### Step 3 - Create a Google OAuth Client ID
 Update `sign-in-button.tsx` to open Google's authentication flow:
@@ -77,11 +75,14 @@ const styles = StyleSheet.create({
 ```
 
 ### Step 4 - Test the Integration
-1. Download the Expo Go app on your phone.
-2. Run `npm start` and scan the QR code form the Expo Go app.
-2. Tap Sign In with Google.
-3. You should see the Google sign-in screen.
-4. On success, you’ll get user details in the console.
+1. Run `npm start`
+2. Go to the [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+3. Edit the OAuth 2.0 Client IDs you created
+4. Add the domain that the app is running on (you can get this from the console, e.g. http://localhost:8081) to 'Authorized redirect URIs'
+5. Open the app on your browser.
+6. Tap Sign In with Google.
+7. You should see the Google sign-in screen.
+8. On success, you’ll get user details in the console.
 
 ### Step 5 - (Optional) Handle Sign-Out
 1. Add a simple sign-out button if needed:
