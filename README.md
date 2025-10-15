@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
 6. Tap Sign In with Google.
 7. You should see the Google sign-in screen.
 8. On success, you’ll see the authentication token in the console (fn + f12).
+
 This token represents the user’s verified Google identity.
 In a real application, this token would typically be sent to your backend server to:
 - Verify the user’s identity with Google’s public keys, and
