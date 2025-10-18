@@ -7,7 +7,10 @@ WebBrowser.maybeCompleteAuthSession();
 
 export default function SignInButton() {
     const [request, response, promptAsync] = Google.useAuthRequest({
-        webClientId: '441353261710-6vth2v1v5muvci79bo04sq1gn2km5otg.apps.googleusercontent.com',
+        iosClientId: '926620050711-uckir7f399p834g9oojgktr2mjrukvp2.apps.googleusercontent.com',
+        androidClientId: '926620050711-uckir7f399p834g9oojgktr2mjrukvp2.apps.googleusercontent.com',
+        webClientId: '926620050711-uckir7f399p834g9oojgktr2mjrukvp2.apps.googleusercontent.com',
+        redirectUri: 'https://auth.expo.io/@seangauci8/sso-demo',
     });
 
     useEffect(() => {
