@@ -81,13 +81,10 @@ const styles = StyleSheet.create({
 
 ### Step 4 - Test the Integration
 1. Run `npm start`
-2. Go to the [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
-3. Edit the OAuth 2.0 Client IDs you created
-4. Add the domain that the app is running on (you can get this from the console, e.g. http://localhost:8081) to 'Authorized redirect URIs'
-5. Open the app on your browser.
-6. Tap Sign In with Google.
-7. You should see the Google sign-in screen.
-8. On success, you’ll see the authentication token in the console (fn + f12).
+2. Open the app on your browser or phone through the QR code (using the Expo Go app).
+3. Tap Sign In with Google.
+4. You should see the Google sign-in screen.
+8. On success, you’ll see the authentication token in the console in the browser version (fn + f12).
 
 This token represents the user’s verified Google identity.
 In a real application, this token would typically be sent to your backend server to:
