@@ -20,10 +20,14 @@
 2. Create a project.
 3. Click Create Credentials -> OAuth client ID.
 4. Click 'Configure consent screen' -> Get started
-5. Select Web client (since we are using expo, otherwise it would be Android or iOS).
+5. Select Web client (since we are using expo).
 6. Copy the Client ID (you’ll need it for your app).
+7. Go to [Expo's website](https://expo.dev/) and create an account
+8. In your app's terminal run `npx expo login` and log in with the account you created
+9. Then run `npx expo whoami` and take note of the username
+10. Now go back to the [Google Cloud Console](https://console.cloud.google.com/apis/credentials) and edit the Web Client ID you created earlier, under 'Authorised redirect URIs' click add and enter the following: 'https://auth.expo.io/@<YOUR_EXPO_USERNAME>/sso-demo' and save.
 
-### Step 3 - Create a Google OAuth Client ID
+### Step 3 - Update the code
 Update `sign-in-button.tsx` to open Google's authentication flow:
 ```tsx
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
@@ -35,9 +39,10 @@ WebBrowser.maybeCompleteAuthSession();
 
 export default function SignInButton() {
    const [request, response, promptAsync] = Google.useAuthRequest({
-      androidClientId: 'YOUR_ANDROID_CLIENT_ID',
-      iosClientId: 'YOUR_IOS_CLIENT_ID',
+      androidClientId: 'YOUR_WEB_CLIENT_ID',
+      iosClientId: 'YOUR_WEB_CLIENT_ID',
       webClientId: 'YOUR_WEB_CLIENT_ID',
+      redirectUri: 'https://auth.expo.io/@<YOUR_EXPO_USERNAME>/sso-demo'
    });
 
    useEffect(() => {
