@@ -21,8 +21,9 @@
 2. Create a project.
 3. Click Create Credentials -> OAuth client ID.
 4. Click 'Configure consent screen' -> Get started
-5. Select Web client (since we are using Expo Go).
+5. *Select Web client.
 6. Copy the Client ID (you’ll need it for your app).
+* We will be testing on web since to test it on your phone a development build is rqeuired which takes too much time for our time slot.
 
 ### Step 3 - Create a Google OAuth Client ID
 Update `sign-in-button.tsx` to open Google's authentication flow:
