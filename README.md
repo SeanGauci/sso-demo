@@ -1,13 +1,9 @@
 ## Get started
 1. Clone our [GitHub repository](https://github.com/SeanGauci/sso-demo).
-2. Install dependencies
+2. Open a terminal and make sure you're in the project's root directory.
+3. Install dependencies
    ```bash
    npm install
-   ```
-
-3. Start the app
-   ```bash
-   npx expo start
    ```
 
 ## Steps to Integrate Google SSO in the Demo App
