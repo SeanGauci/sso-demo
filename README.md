@@ -18,10 +18,10 @@
 3. Make sure you select the project you just created in the project picker (top left of the screen).
 4. Click Create Credentials -> OAuth client ID.
 5. Click 'Configure consent screen' -> Get started
-   a. Enter an app name of your liking and select a 'User support email'.
-   b. Under 'Audience', pick 'External'
-   c. Enter your email under 'Contact Information'.
-   d. Click agree, and create.
+   * Enter an app name of your liking and select a 'User support email'.
+   * Under 'Audience', pick 'External'
+   * Enter your email under 'Contact Information'.
+   * Click agree, and create.
 6. In the left side menu, click 'Clients'.
 7. Click 'Create client'.
 8. *Select 'Web Application' and enter a name.
