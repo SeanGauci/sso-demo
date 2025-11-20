@@ -15,15 +15,24 @@
 ### Step 2 - Create a Google OAuth Client ID
 1. Go to the [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
 2. Create a project.
-3. Click Create Credentials -> OAuth client ID.
-4. Click 'Configure consent screen' -> Get started
-5. *Select Web client.
-6. Copy the Client ID (you’ll need it for your app).
+3. Make sure you select the project you just created in the project picker (top left of the screen).
+4. Click Create Credentials -> OAuth client ID.
+5. Click 'Configure consent screen' -> Get started
+   a. Enter an app name of your liking and select a 'User support email'.
+   b. Under 'Audience', pick 'External'
+   c. Enter your email under 'Contact Information'.
+   d. Click agree, and create.
+6. In the left side menu, click 'Clients'.
+7. Click 'Create client'.
+8. *Select 'Web Application' and enter a name.
+9. Click 'Create' at the bottom.
+10. Copy the Client ID and save it somewhere (you’ll need it for your app).
 
 *We will be testing on web since to test it on your phone a development build is rqeuired which takes too much time for our time slot.
 
 ### Step 3 - Create a Google OAuth Client ID
-Update `sign-in-button.tsx` to open Google's authentication flow:
+Update `components/sign-in-button.tsx` to open Google's authentication flow as follows;
+IMPORTANT: Make sure you replace 'YOUR_ANDROID_CLIENT_ID', 'YOUR_IOS_CLIENT_ID', and 'YOUR_WEB_CLIENT_ID' with the Client ID you saved earlier.
 ```tsx
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
