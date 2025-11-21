@@ -1,50 +1,93 @@
-# Welcome to your Expo app 👋
-
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
-
 ## Get started
-
-1. Install dependencies
-
+1. Clone our [GitHub repository](https://github.com/SeanGauci/sso-demo).
+2. Open a terminal and make sure you're in the project's root directory.
+3. Install dependencies
    ```bash
    npm install
    ```
 
-2. Start the app
-
+## Steps to Integrate Google SSO in the Demo App
+### Step 1 - Install Required Packages
    ```bash
-   npx expo start
+   npx expo install expo-auth-session
    ```
 
-In the output, you'll find options to open the app in a
+### Step 2 - Create a Google OAuth Client ID
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+2. Create a project.
+3. Make sure you select the project you just created in the project picker (top left of the screen).
+4. Click Create Credentials -> OAuth client ID.
+5. Click 'Configure consent screen' -> Get started
+   * Enter an app name of your liking and select a 'User support email'.
+   * Under 'Audience', pick 'External'
+   * Enter your email under 'Contact Information'.
+   * Click agree, and create.
+6. In the left side menu, click 'Clients'.
+7. Click 'Create client'.
+8. *Select 'Web Application' and enter a name.
+9. Click 'Create' at the bottom.
+10. Copy the Client ID and save it somewhere (you’ll need it for your app).
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+*We will be testing on web since to test it on your phone a development build is rqeuired which takes too much time for our time slot.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### Step 3 - Create a Google OAuth Client ID
+Update `components/sign-in-button.tsx` to open Google's authentication flow as follows;
+IMPORTANT: Make sure you replace 'YOUR_ANDROID_CLIENT_ID', 'YOUR_IOS_CLIENT_ID', and 'YOUR_WEB_CLIENT_ID' with the Client ID you saved earlier.
+```tsx
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
+import { useEffect } from 'react';
 
-## Get a fresh project
+WebBrowser.maybeCompleteAuthSession();
 
-When you're ready, run:
+export default function SignInButton() {
+   const [request, response, promptAsync] = Google.useAuthRequest({
+      androidClientId: 'YOUR_ANDROID_CLIENT_ID',
+      iosClientId: 'YOUR_IOS_CLIENT_ID',
+      webClientId: 'YOUR_WEB_CLIENT_ID',
+   });
 
-```bash
-npm run reset-project
+   useEffect(() => {
+      if (response?.type === 'success') {
+         const { authentication } = response;
+         console.log('Access token:', authentication?.accessToken);
+         // Handle login success (e.g., navigate or call backend)
+      }
+   }, [response]);
+
+   return (
+           <TouchableOpacity
+                   style={styles.button}
+                   onPress={() => promptAsync()}
+                   disabled={!request}
+           >
+              <Text style={styles.text}>Sign In with Google</Text>
+           </TouchableOpacity>
+   );
+}
+
+const styles = StyleSheet.create({
+   button: {
+      backgroundColor: '#4285F4',
+      paddingVertical: 12,
+      paddingHorizontal: 24,
+      borderRadius: 8,
+   },
+   text: {
+      color: '#fff',
+      fontWeight: '600',
+      fontSize: 16,
+   },
+});
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### Step 4 - Test the Integration
+1. Run `npm start`
+2. Go to the [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+3. Edit the OAuth 2.0 Client IDs you created
+4. Add the domain that the app is running on (you can get this from the console, e.g. http://localhost:8081) to 'Authorized redirect URIs'
+5. Open the app on your browser.
+6. Tap Sign In with Google.
+7. You should see the Google sign-in screen.
+8. On success, you’ll get user details in the console (fn + f12).
