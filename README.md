@@ -1,3 +1,35 @@
+⚠️ Important Note About Testing Google SSO in Expo
+
+Before you start, it’s important to understand how Google SSO behaves inside Expo:
+
+* Expo Go cannot load custom native modules (like the native Google Sign-In SDK).
+* The older Expo AuthSession proxy (auth.expo.io) is deprecated, and Expo Go no longer provides reliable redirect handling for Google OAuth.
+* This causes common issues such as:
+  * Google rejecting redirects (redirect_uri errors)
+  * Being redirected to google.com after login 
+  * The authentication callback never reaching the app
+
+✔️ What does work reliably 
+* Android:
+Use a Development Build (via EAS) → Native Google Sign-In works without redirects.
+
+* iOS:
+Apple does not allow installing dev builds without:
+  * a paid Apple Developer account, or
+  * a Mac + USB cable using Xcode
+  ➜ Because of this, iOS cannot run the native Google SSO flow during development unless you have one of these.
+
+✔️ How we will test SSO in this demo
+
+Because of these limitations, this demo project uses web-based Google OAuth (via expo-auth-session) for testing, which always works in the browser, regardless of your platform.
+
+So the flow is:
+* Android native testing → optional via dev build
+* iOS native testing → requires Apple Developer or Xcode + USB
+* Browser testing → works everywhere, recommended for this demo
+
+That’s why we will use the web version to test SSO in this guide.
+
 ## Get started
 1. Clone our [GitHub repository](https://github.com/SeanGauci/sso-demo).
 2. Open a terminal and make sure you're in the project's root directory.
@@ -24,15 +56,14 @@
    * Click agree, and create.
 6. In the left side menu, click 'Clients'.
 7. Click 'Create client'.
-8. *Select 'Web Application' and enter a name.
+8. Select 'Web Application' and enter a name.
 9. Click 'Create' at the bottom.
 10. Copy the Client ID and save it somewhere (you’ll need it for your app).
 
-*We will be testing on web since to test it on your phone a development build is rqeuired which takes too much time for our time slot.
-
-### Step 3 - Create a Google OAuth Client ID
+### Step 3 - Update `sign-in-button.tsx`
 Update `components/sign-in-button.tsx` to open Google's authentication flow as follows;
-IMPORTANT: Make sure you replace 'YOUR_ANDROID_CLIENT_ID', 'YOUR_IOS_CLIENT_ID', and 'YOUR_WEB_CLIENT_ID' with the Client ID you saved earlier.
+
+**IMPORTANT**: Make sure you replace 'YOUR_ANDROID_CLIENT_ID', 'YOUR_IOS_CLIENT_ID', and 'YOUR_WEB_CLIENT_ID' with the Client ID you saved earlier.
 ```tsx
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
@@ -83,7 +114,7 @@ const styles = StyleSheet.create({
 ```
 
 ### Step 4 - Test the Integration
-1. Run `npm start`
+1. Run `npx expo start`
 2. Go to the [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
 3. Edit the OAuth 2.0 Client IDs you created
 4. Add the domain that the app is running on (you can get this from the console, e.g. http://localhost:8081) to 'Authorized redirect URIs'
