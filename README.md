@@ -26,7 +26,7 @@ Because of these limitations, this demo project uses web-based Google OAuth (via
 So the flow is:
 * Android native testing → optional via dev build
 * iOS native testing → requires Apple Developer or Xcode + USB
-* Browser testing → works everywhere, recommended for this demo
+* Browser testing → works everywhere
 
 That’s why we will use the web version to test SSO in this guide.
 
